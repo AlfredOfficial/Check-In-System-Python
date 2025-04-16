@@ -1,10 +1,27 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block title %}
-    Home
+    Home-CGOD G_House
 {% endblock %}
 
 {% block content %}
-<h1>Home</h1>
-    <p>Check out my <a href="/about">About</a> page</p>
+<div class="home-container">
+    <div class="home-content">
+        <!-- Left Side: Image -->
+        <div class="home-image">
+            <img src="{% static 'images/home-design.jpg' %}" alt="CGOD G_House" />
+        </div>
+
+        <!-- Right Side: Description -->
+        <div class="home-description">
+            <h1>Welcome to CGOD G_House</h1>
+            <p>
+                CGOD G_House is your perfect destination for comfort and relaxation. 
+                Enjoy our premium rooms, excellent service, and a welcoming atmosphere. 
+                Whether you're here for business or leisure, we ensure a memorable stay.
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}  
