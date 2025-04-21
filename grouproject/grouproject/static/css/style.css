@@ -5,6 +5,7 @@ body {
     overflow-x: hidden;
     background-color: #f4f4f9;
     color: #333;
+
 }
 nav {
     background-color: #333;
@@ -13,6 +14,7 @@ nav {
     display: flex;
     align-items: center; /* Align items vertically */
     gap: 2rem; /* Space between logo and links */
+  
 }
 
 .nav-title {
@@ -54,15 +56,83 @@ main {
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full viewport height */
+}
+/* Login container styling */
+.login-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading styling */
+.login-container h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+/* Error message styling */
+.error-message {
+    color: #d9534f;
+    background: #f8d7da;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Input fields styling */
+form input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
     box-sizing: border-box;
 }
-.hero {
-    width: 100%;
-    min-height: 100vh;
-    background-image: url('/static/images/background.jpg');
-    background-position: center;
-    background-size: cover;
-    padding: 10px 10%;
-    overflow: hidden;
-    box-sizing: border-box;
+
+/* Button styling */
+form .btn {
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Link styling */
+.login-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
 }

@@ -10,14 +10,14 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('accounts_home')
+            return redirect('login')
         else:
-            return render(request, 'accounts/accounts_home.html', {'form': form, 'error': 'Invalid credentials'})
+            return render(request, 'accounts/login.html', {'form': form, 'error': 'Invalid credentials'})
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/accounts_home.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('login')
