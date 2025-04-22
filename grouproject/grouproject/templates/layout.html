@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block title %}
-            OUR PROJECT
+            OJT Time Tracking System
         {% endblock %}
     </title>
     <!-- for design  -->
@@ -22,7 +22,7 @@
 
     <nav>
         <span class="nav-title">
-            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="nav-logo"> CGOD G_House
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="nav-logo"> OJT Time Tracking System
         </span>
         <div class="nav-links">
             <a href="/"></i> Home</a>
@@ -30,10 +30,15 @@
             <a href="{% url 'login' %}"> Login</a>    
         </div>
     </nav>
+    
     <main>
         {% block content %}
         {% endblock %}
     </main>
+
+    <footer style="text-align: center; padding: 1rem; background-color: #2c3e50; color: #ecf0f1; margin-top: 2rem;">
+        &copy; 2025 OJT Time Tracking System. All rights reserved.
+    </footer>
     
 </body>
 </html>
