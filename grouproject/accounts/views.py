@@ -9,6 +9,8 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            if user.is_superuser:  # Check if the user is an admin
+                return redirect('/admin/')  # Redirect to Django admin interface
             return redirect('home')  # Redirect to the home page or dashboard
         else:
             return render(request, 'accounts/login.html', {'form': form, 'error': 'Invalid credentials'})
