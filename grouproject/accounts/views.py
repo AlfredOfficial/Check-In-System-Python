@@ -29,7 +29,8 @@ def logout_view(request):
     return redirect('login')
 
 @login_required
-def intern_dashboard(request):
+def intern_dashboard(request): # This view is for the intern dashboard
+    
     # Check if the logged-in user is part of the "Interns" group
     if request.user.groups.filter(name='Interns').exists():
         # Fetch time logs for the logged-in intern
