@@ -131,3 +131,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+JAZZMIN_SETTINGS = {
+    "site_title": "DTC Staff Management",
+    "welcome_sign": "Welcome to the DTC Staff Management",
+    "site_logo": "images/logo.jpg",
+    "site_brand": "DTC Staff Management",
+}
