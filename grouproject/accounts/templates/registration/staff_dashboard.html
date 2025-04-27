@@ -1,0 +1,15 @@
+{% comment %} nag add pero wala pay function {% endcomment %}
+<h1>Staff Members</h1>
+
+<ul>
+  {% for staff in staff_members %}
+    <li>
+      {% if staff.photo %}
+        <img src="{{ staff.photo.url }}" alt="{{ staff.first_name }}" width="100" height="100">
+      {% endif %}
+      <strong>{{ staff.first_name }} {{ staff.last_name }}</strong> - {{ staff.position }} ({{ staff.department.name }})
+    </li>
+  {% empty %}
+    <li>No staff members found.</li>
+  {% endfor %}
+</ul>
