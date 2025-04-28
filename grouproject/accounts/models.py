@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Department(models.Model):
     name = models.CharField(max_length=100)  # Department name
@@ -9,7 +11,6 @@ class Department(models.Model):
 
 class Staff(models.Model):
     staff_username = models.CharField(max_length=100, unique=True)  # Unique staff ID
-    staff_password = models.CharField(max_length=100, default='defaultpassword')  # Staff password
     first_name = models.CharField(max_length=100)  # Staff first name
     last_name = models.CharField(max_length=100)  # Staff last name
     position = models.CharField(max_length=100)  # Staff position

@@ -3,7 +3,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from .models import TimeLog
+from .models import Staff, TimeLog
+
 
 class CustomLoginView(View):
     def get(self, request):
@@ -28,10 +29,14 @@ class CustomLoginView(View):
 # nag add then ni function na pero libog pa
 @login_required
 def staff_dashboard(request):
-    if request.user.is_staff:
-        # Fetch the time logs for the logged-in staff member
-        time_logs = TimeLog.objects.filter(staff__staff_username=request.user.username)
-        # pass timelogs to the template
-        return render(request, 'registration/staff_dashboard.html', {'time_logs': time_logs})
-    else:
-        return redirect('home')
+    # Fetch the staff based on the logged-in user
+    try:
+        staff_member = Staff.objects.get(user=request.user)  # Get the staff record for the logged-in user
+    except Staff.DoesNotExist:
+        return redirect('home')  # If no staff is found, redirect to home
+
+    # Fetch time logs for the logged-in staff member
+    time_logs = TimeLog.objects.filter(staff=staff_member)  # Get the time logs for the logged-in staff member
+
+    # Pass the time logs to the template
+    return render(request, 'registration/staff_dashboard.html', {'staff': staff_member, 'time_logs': time_logs})
