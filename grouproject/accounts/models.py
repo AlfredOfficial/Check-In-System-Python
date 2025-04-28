@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Department(models.Model):
     name = models.CharField(max_length=100)  # Department name
-
+    
     def __str__(self):
         return self.name
 
