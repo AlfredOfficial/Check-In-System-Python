@@ -21,7 +21,7 @@ class CustomLoginView(View):
             if user.is_superuser:
                 return redirect('/admin/')  # Redirect to admin dashboard
             elif user.is_staff:
-                return redirect('staff_dashboard')  # Redirect to staff dashboard
+                return redirect('registration/staff_dashboard')  # Redirect to staff dashboard
             else:
                 return redirect('home')
         return render(request, 'registration/login.html', {'form': form})
@@ -29,23 +29,13 @@ class CustomLoginView(View):
 
 @login_required
 def staff_dashboard(request):
-    # Fetch the staff based on the logged-in user
-    try:
-        staff_member = Staff.objects.get(user=request.user)  # Get the staff record for the logged-in user
-    except Staff.DoesNotExist:
-        return redirect('home')  # If no staff is found, redirect to home
-
-    # Fetch time logs for the logged-in staff member
+    staff_member = Staff.objects.get(user=request.user)
     time_logs = TimeLog.objects.filter(staff=staff_member).order_by('-date')
-
-    # Check if the user has logged in or out today
     today = timezone.now().date()
     has_logged_in = time_logs.filter(date=today, time_in__isnull=False).exists()
     has_logged_out = time_logs.filter(date=today, time_out__isnull=False).exists()
 
-    # Pass the time logs and status information to the template
     return render(request, 'registration/staff_dashboard.html', {
-        'staff': staff_member,
         'time_logs': time_logs,
         'has_logged_in': has_logged_in,
         'has_logged_out': has_logged_out
@@ -56,11 +46,11 @@ def staff_dashboard(request):
 def time_in(request):
     # Log time in for the logged-in user
     staff_member = Staff.objects.get(user=request.user)
-    time_log = TimeLog.objects.create(
+    time_log = TimeLog.objects.create( # naay error entry
         staff=staff_member,
         date=timezone.now().date(),
         time_in=timezone.now().time(),
-        status='IN'
+        status='on_time'  # Default status when checking in
     )
     return redirect('registration/staff_dashboard')  # Redirect to the staff dashboard
 
