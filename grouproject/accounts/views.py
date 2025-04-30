@@ -46,7 +46,7 @@ def staff_dashboard(request):
 def time_in(request):
     # Log time in for the logged-in user
     staff_member = Staff.objects.get(user=request.user)
-    time_log = TimeLog.objects.create( # naay error entry
+    time_log = TimeLog.objects.create(
         staff=staff_member,
         date=timezone.now().date(),
         time_in=timezone.now().time(),
@@ -67,3 +67,19 @@ def time_out(request):
         time_log.save()
 
     return redirect('registration/staff_dashboard')  # Redirect to the staff dashboard
+
+
+# ADD THE DASHBOARD FUNCTION HERE
+@login_required
+def dashboard(request):
+    # Get the logged-in user's staff object
+    try:
+        staff = Staff.objects.get(user=request.user)
+    except Staff.DoesNotExist:
+        staff = None
+
+    # Fetch the TimeLog records for the logged-in staff
+    timelogs = TimeLog.objects.filter(staff=staff) if staff else []
+
+    # Pass the TimeLog data to the template
+    return render(request, 'registration/dash_board.html', {'timelogs': timelogs})
