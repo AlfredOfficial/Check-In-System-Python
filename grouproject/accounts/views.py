@@ -10,7 +10,7 @@ from .models import Staff, TimeLog
 class CustomLoginView(View):
     def get(self, request):
         form = AuthenticationForm()
-        return render(request, 'registration/login.html', {'form': form})
+        return render(request, 'accounts/registration/login.html', {'form': form})
     
     def post(self, request):
         form = AuthenticationForm(data=request.POST)
@@ -21,10 +21,10 @@ class CustomLoginView(View):
             if user.is_superuser:
                 return redirect('/admin/')  # Redirect to admin dashboard
             elif user.is_staff:
-                return redirect('registration/staff_dashboard')  # Redirect to staff dashboard
+                return redirect('accounts/registration/staff_dashboard.html')  # Redirect to staff dashboard
             else:
                 return redirect('home')
-        return render(request, 'registration/login.html', {'form': form})
+        return render(request, 'accounts/registration/login.html', {'form': form})
 
 
 @login_required
@@ -35,7 +35,7 @@ def staff_dashboard(request):
     has_logged_in = time_logs.filter(date=today, time_in__isnull=False).exists()
     has_logged_out = time_logs.filter(date=today, time_out__isnull=False).exists()
 
-    return render(request, 'registration/staff_dashboard.html', {
+    return render(request, 'accounts/registration/staff_dashboard.html', {
         'time_logs': time_logs,
         'has_logged_in': has_logged_in,
         'has_logged_out': has_logged_out
@@ -52,7 +52,7 @@ def time_in(request):
         time_in=timezone.now().time(),
         status='on_time'  # Default status when checking in
     )
-    return redirect('registration/staff_dashboard')  # Redirect to the staff dashboard
+    return redirect('accounts/registration/staff_dashboard.html')  # Redirect to the staff dashboard
 
 
 @login_required
@@ -66,7 +66,7 @@ def time_out(request):
         time_log.status = 'OUT'
         time_log.save()
 
-    return redirect('registration/staff_dashboard')  # Redirect to the staff dashboard
+    return redirect('accounts/registration/staff_dashboard.html')  # Redirect to the staff dashboard
 
 
 # ADD THE DASHBOARD FUNCTION HERE
@@ -82,4 +82,4 @@ def dashboard(request):
     timelogs = TimeLog.objects.filter(staff=staff) if staff else []
 
     # Pass the TimeLog data to the template
-    return render(request, 'registration/dash_board.html', {'timelogs': timelogs})
+    return render(request, 'dash_board.html', {'timelogs': timelogs})
