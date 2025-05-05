@@ -4,7 +4,16 @@ from .models import Department, Staff, TimeLog
 
 # Register your models here.
 admin.site.register(Department)
-admin.site.register(TimeLog)
+
+@admin.register(TimeLog)
+class TimeLogAdmin(admin.ModelAdmin):
+    list_display = ('staff', 'date', 'time_in', 'time_out', 'status', 'total_hours')
+
+    def total_hours(self, obj):
+        return obj.total_hours_worked()
+    
+    total_hours.short_description = 'Total Hours Worked'
+
 
 # Register Staff with the custom StaffAdmin
 @admin.register(Staff)

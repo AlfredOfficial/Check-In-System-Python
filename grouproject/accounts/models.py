@@ -38,3 +38,18 @@ class TimeLog(models.Model):
 
     def __str__(self):
         return f'{self.staff or "Unknown Staff"} - {self.date} - {self.status}'
+    
+    def total_hours_worked(self):
+        if self.time_in and self.time_out:
+            from datetime import datetime
+            time_in = datetime.combine(self.date, self.time_in)
+            time_out = datetime.combine(self.date, self.time_out)
+            total_hours = (time_out - time_in) . total_seconds() / 3600
+            return round(total_hours, 2)
+        return 0
+    
+    def has_logged_in(self):
+        return self.time_in is not None
+    
+    def has_logged_out(self):
+        return self.time_out is not None

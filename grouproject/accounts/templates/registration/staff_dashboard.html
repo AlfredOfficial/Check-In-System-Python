@@ -11,6 +11,7 @@
             <th>Time In</th>
             <th>Time Out</th>
             <th>Status</th>
+            <th>Total Hours Worked</th>  
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
             <td>{{ log.time_in }}</td>
             <td>{{ log.time_out }}</td>
             <td>{{ log.get_status_display }}</td>
+            <td>{{ log.total_hours_worked }}</td>
         </tr>
         {% empty %}
         <tr>

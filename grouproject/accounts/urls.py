@@ -7,5 +7,4 @@ urlpatterns = [
    path('login/', auth_views.LoginView.as_view(), name='login'),
    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
    path('staff_dashboard/', views.staff_dashboard, name='staff_dashboard'),
-   path('dashboard/', views.dashboard, name='dashboard'), # add daw ani baw para asa ni 
 ]
