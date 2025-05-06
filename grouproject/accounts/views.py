@@ -21,21 +21,29 @@ class CustomLoginView(View):
             if user.is_superuser:
                 return redirect('/admin/')  # Redirect to admin dashboard
             elif user.is_staff:
-                return redirect('registration/staff_dashboard.html')  # Redirect to staff dashboard
+                return redirect('/staff_dashboard/')  # Redirect to staff dashboard
             else:
-                return redirect('home')
+                return redirect('/home/')
         return render(request, 'registration/login.html', {'form': form})
 
 
 @login_required
 def staff_dashboard(request):
-    staff_member = Staff.objects.get(user=request.user)
-    time_logs = TimeLog.objects.filter(staff=staff_member).order_by('-date')
+    # Get the logged-in user's staff object
+    try:
+        staff_member = Staff.objects.get(user=request.user)
+    except Staff.DoesNotExist:
+        staff_member = None
+
+    # Fetch the TimeLog records for the logged-in staff
+    time_logs = TimeLog.objects.filter(staff=staff_member).order_by('-date') if staff_member else []
     today = timezone.now().date()
     has_logged_in = time_logs.filter(date=today, time_in__isnull=False).exists()
     has_logged_out = time_logs.filter(date=today, time_out__isnull=False).exists()
 
+    # Pass the staff data and time logs to the template
     return render(request, 'registration/staff_dashboard.html', {
+        'staff_member': staff_member,
         'time_logs': time_logs,
         'has_logged_in': has_logged_in,
         'has_logged_out': has_logged_out

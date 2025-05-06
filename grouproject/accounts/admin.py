@@ -3,7 +3,11 @@ from django.utils.html import format_html
 from .models import Department, Staff, TimeLog
 
 # Register your models here.
-admin.site.register(Department)
+@admin.register(Department) # new add 
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name',)
+    search_fields = ('name',)
+    list_filter = ('name',)
 
 @admin.register(TimeLog)
 class TimeLogAdmin(admin.ModelAdmin):

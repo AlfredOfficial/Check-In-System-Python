@@ -1,7 +1,17 @@
-{% extends "layout.html" %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block extra_head %}
 
 {% block content %}
-<h1>Staff Dashboard</h1>
+<h1>Welcome, {{ staff_member.first_name }} {{ staff_member.last_name }}!</h1>
+<p>Position: {{ staff_member.position }}</p>
+<p>Department: {{ staff_member.department.name }}</p>
+{% if staff_member.photo %}
+    <img src="{{ staff_member.photo.url }}" alt="Staff Photo" width="150" height="150">
+{% else %}
+    <p>No photo available.</p>
+{% endif %}
 
 <h2>Your Time Logs</h2>
 <table class="table table-striped">
