@@ -10,7 +10,7 @@ class Department(models.Model):
 
 
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     staff_username = models.CharField(max_length=100, unique=True)  # Unique staff username
     first_name = models.CharField(max_length=100)  # Staff first name
     last_name = models.CharField(max_length=100)  # Staff last name

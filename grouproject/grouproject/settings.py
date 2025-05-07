@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,12 +130,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/staff_dashboard/'
+LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
-
-JAZZMIN_SETTINGS = {
-    "site_title": "DTC Staff Management",
-    "welcome_sign": "Welcome to the DTC Staff Management",
-    "site_logo": "images/logo.jpg",
-    "site_brand": "DTC Staff Management",
-}

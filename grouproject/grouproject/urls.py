@@ -23,9 +23,12 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
     path('', views.homepage, name='home'),
     path('about/', views.about, name='about'),
-    path('accounts/', include('accounts.urls')),
+    path('staff_dashboard/', views.staff_dashboard, name='staff_dashboard'),
+    path('time_in/', views.time_in, name='time_in'),
+       
 ]
 
 if settings.DEBUG:

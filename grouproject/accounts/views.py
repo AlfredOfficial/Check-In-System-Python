@@ -20,7 +20,7 @@ class CustomLoginView(View):
 
             if user.is_superuser:
                 return redirect('/admin/')  # Redirect to admin dashboard
-            elif user.is_staff:
+            elif hasattr(user, 'staff'):
                 return redirect('/staff_dashboard/')  # Redirect to staff dashboard
             else:
                 return redirect('/home/')
@@ -30,10 +30,9 @@ class CustomLoginView(View):
 @login_required
 def staff_dashboard(request):
     # Get the logged-in user's staff object
-    try:
-        staff_member = Staff.objects.get(user=request.user)
-    except Staff.DoesNotExist:
-        staff_member = None
+    
+    staff_member = Staff.objects.get(user=request.user)
+   
 
     # Fetch the TimeLog records for the logged-in staff
     time_logs = TimeLog.objects.filter(staff=staff_member).order_by('-date') if staff_member else []
@@ -54,13 +53,13 @@ def staff_dashboard(request):
 def time_in(request):
     # Log time in for the logged-in user
     staff_member = Staff.objects.get(user=request.user)
-    time_log = TimeLog.objects.create(
+    TimeLog.objects.create(
         staff=staff_member,
         date=timezone.now().date(),
         time_in=timezone.now().time(),
         status='on_time'  # Default status when checking in
     )
-    return redirect('registration/staff_dashboard.html')  # Redirect to the staff dashboard
+    return redirect('staff_dashboard')  # Redirect to the staff dashboard
 
 
 @login_required
@@ -74,4 +73,4 @@ def time_out(request):
         time_log.status = 'OUT'
         time_log.save()
 
-    return redirect('registration/staff_dashboard.html')  # Redirect to the staff dashboard
+    return redirect('staff_dashboard')  # Redirect to the staff dashboard
