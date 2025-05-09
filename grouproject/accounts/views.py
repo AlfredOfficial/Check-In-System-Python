@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Staff, TimeLog
+from .models import Department, Staff, TimeLog
 
 
 class CustomLoginView(View):
