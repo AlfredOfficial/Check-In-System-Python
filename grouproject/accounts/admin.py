@@ -5,7 +5,7 @@ from .models import Department, Staff, TimeLog
 # Register your models here.
 @admin.register(Department) # new add 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name',)
+    list_display = ('name',)
     search_fields = ('name',)
     list_filter = ('name',)
 

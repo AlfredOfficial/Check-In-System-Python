@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.views import View
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .models import Department, Staff, TimeLog
 
@@ -18,7 +18,7 @@ class CustomLoginView(View):
             user = form.get_user()
             login(request, user)
 
-            if user.is_superuser:
+            if user.is_superuser or user.is_staff:
                 return redirect('/admin/')  # Redirect to admin dashboard
             elif hasattr(user, 'staff'):
                 return redirect('/staff_dashboard/')  # Redirect to staff dashboard
