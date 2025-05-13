@@ -18,12 +18,18 @@ class Staff(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)  # Foreign key to Department
     photo = models.ImageField(upload_to='staff_photos/', null=True, blank=True)  # Staff photo
 
+    def save(self, *args, **kwargs): # add this yawa
+        # Ensure no duplicate user entries
+        if Staff.objects.filter(user=self.user).exists() and not self.pk:
+            raise ValueError("A staff member with this user already exists.")
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.first_name or "Unknown"} {self.last_name or "Unknown"} ({self.position or "No Position"})' # adding the or unknown
 
 
 class TimeLog(models.Model):
-    staff = models.ForeignKey(Staff, on_delete=models.PROTECT)  # ADDING PROTECT STAFF
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)  # delete PROTECT STAFF
     date = models.DateField()  # Date of the log
     time_in = models.TimeField()  # Check-in time
     time_out = models.TimeField()  # Check-out time
